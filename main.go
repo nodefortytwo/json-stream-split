@@ -14,6 +14,7 @@ const (
 	escape = '\\'
 )
 
+// A function used for processing objects as they are found.
 type Handler func(object []byte)
 
 // Split takes an io.Reader and returns a slice of byte slices
@@ -92,11 +93,12 @@ func SplitWithHandler(reader io.Reader, handler Handler) error {
 			isEscaped = false
 		}
 
-		currentMatch = append(currentMatch, char)
-
-		if depth == 0 {
+		if depth == 0 && len(currentMatch) > 0 {
+			currentMatch = append(currentMatch, char)
 			handler(runeSliceToByteSlice(currentMatch))
 			currentMatch = []rune{}
+		} else if depth > 0 {
+			currentMatch = append(currentMatch, char)
 		}
 	}
 }

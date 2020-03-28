@@ -14,6 +14,7 @@ func TestSplitString(t *testing.T) {
 		wantErr bool
 	}{
 		{"simple", "{a}{b}", []string{"{a}", "{b}"}, false},
+		{"with a delimiter", "{a}notjson{b}", []string{"{a}", "{b}"}, false},
 		{"nesting", "{a:{c}}{b}", []string{"{a:{c}}", "{b}"}, false},
 		{"quoted", `{a:"{c"}{b}`, []string{`{a:"{c"}`, "{b}"}, false},
 		{"escaped quote", `{a:"{c\""}{b}`, []string{`{a:"{c\""}`, "{b}"}, false},
