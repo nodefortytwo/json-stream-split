@@ -26,7 +26,7 @@ func Split(reader io.Reader) (results [][]byte, err error) {
 	return
 }
 
-// Split takes an io.Reader and returns a slice of strings
+// SplitString takes an io.Reader and returns a slice of strings
 // representing the json objects stored in the stream
 func SplitString(reader io.Reader) (results []string, err error) {
 	err = SplitWithHandler(reader, func(object []byte) {
@@ -35,7 +35,7 @@ func SplitString(reader io.Reader) (results []string, err error) {
 	return
 }
 
-// Split takes an io.Reader and returns a slice of raw json messages
+// SplitJsonRaw takes an io.Reader and returns a slice of raw json messages
 // representing the json objects stored in the stream
 // Note, invalid json strings are dropped without error
 func SplitJsonRaw(reader io.Reader) (results []json.RawMessage, err error) {
@@ -47,7 +47,7 @@ func SplitJsonRaw(reader io.Reader) (results []json.RawMessage, err error) {
 	return
 }
 
-// Split takes an io.Reader and a Handler function which receives slice a
+// SplitWithHandler takes an io.Reader and a Handler function which receives a
 // byte slice containing a single object from the stream.
 func SplitWithHandler(reader io.Reader, handler Handler) error {
 	r := bufio.NewReader(reader)
